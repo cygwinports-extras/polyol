@@ -1,0 +1,13 @@
+--- origsrc/polyol/cmake/Component.cmake	2012-08-05 03:57:58.000000000 -0500
++++ src/polyol/cmake/Component.cmake	2012-08-05 04:06:52.569340800 -0500
+@@ -52,7 +52,9 @@ macro (add_component)
+         VERSION ${MAJOR_VERSION}.1.${MINOR_VERSION}
+         SOVERSION ${MAJOR_VERSION})
+ 
+-    install (TARGETS ${_dist_name} DESTINATION lib)
++    install (TARGETS ${_dist_name} LIBRARY DESTINATION lib
++                                   RUNTIME DESTINATION bin
++                                   ARCHIVE DESTINATION lib)
+     install (FILES ${CURRENT_GEN_DIR}/${_dist_name}.vapi DESTINATION share/vala/vapi)
+     install (FILES ${CURRENT_GEN_DIR}/${ARG_COMPONENT}.h DESTINATION include/${CMAKE_PROJECT_NAME})
+ 
