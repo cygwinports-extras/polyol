@@ -1,10 +1,14 @@
+GIT_URI="git://git.sugarlabs.org/sdk/polyol.git"
+GIT_TAG=v${PV}
+inherit git cmake python
+
+NAME="polyol"
+VERSION=1.3
+RELEASE=2
 CATEGORY="Sugar"
 SUMMARY="Sugar C libraries"
 DESCRIPTION="A set of C libraries to help with coding non-Python Sugar
 activities."
-GIT_URI="git://git.sugarlabs.org/sdk/polyol.git"
-GIT_TAG=v${PV}
-inherit git cmake python
 
 PATCH_URI="01-install.patch"
 
@@ -19,7 +23,13 @@ python_polyol_CONTENTS="${PYTHON_SITELIB#/} usr/share/polyol/defs/"
 vala_polyol_SUMMARY="${SUMMARY} (Vala bindings)"
 vala_polyol_CONTENTS="usr/share/vala/"
 
-CYGCMAKE_ARGS="-DPYTHON_SITEDIR=${PYTHON_SITELIB} -DVALA_C=/usr/bin/valac-0.12"
+CYGCMAKE_ARGS="
+	-DPYTHON_EXECUTABLE=${PYTHON}
+	-DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDEDIR}
+	-DPYTHON_LIBRARY=/usr/lib/libpython${PYTHON_VERSION}.dll.a
+	-DPYTHON_SITEDIR=${PYTHON_SITELIB}
+	-DVALA_C=/usr/bin/valac-0.12
+"
 
 src_install() {
 	cd ${B}
